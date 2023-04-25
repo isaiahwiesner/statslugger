@@ -12,9 +12,8 @@ const app = express()
 
 // Middleware
 app.use(bodyParser.json())
-const allowedOrigins = ['https://statslugger-frontend.web.app']
 app.use(cors({
-  origin: allowedOrigins
+  origin: 'https://statslugger-frontend.web.app' 
 }))
 
 // Routers
