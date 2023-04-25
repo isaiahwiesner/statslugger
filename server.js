@@ -12,7 +12,7 @@ const app = express()
 
 // Middleware
 app.use(bodyParser.json())
-const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',')
+const allowedOrigins = ['https://statslugger.web.app']
 app.use(cors({
   origin: allowedOrigins
 }))
