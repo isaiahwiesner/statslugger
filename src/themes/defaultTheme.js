@@ -7,7 +7,7 @@ const defaultTheme = createTheme({
       light: '#ffdede',
       main: '#ef4444',
       dark: '#b91c1c',
-      navbar: '#ef4444'
+      navbar: '#b91c1c'
     },
     background: {
       default: '#fafafa'

@@ -231,11 +231,6 @@ export default function Navbar() {
                       <AdminIcon sx={{ color: 'admin' }} />
                     </Tooltip>
                   )}
-                  {user.emailVerified && user.group !== 'admin' && (
-                    <Tooltip title="Email Verified">
-                      <EmailVerifiedIcon />
-                    </Tooltip>
-                  )}
                   {!user.emailVerified && (
                     <Tooltip title="Email Unverified">
                       <EmailUnverifiedIcon color="warning" />
