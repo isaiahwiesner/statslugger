@@ -38,6 +38,6 @@ export function useImageUpload() {
   return {
     uploadImage,
     error, setError,
-    isLoading
+    isLoading, setIsLoading
   }
 }

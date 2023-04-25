@@ -29,13 +29,13 @@ export function AuthProvider({ children }) {
         setLoading(false)
         return
       }
-      const response = await fetch(process.env.REACT_APP_API_ROOT + '/auth', {
+      const response = await fetch(process.env.REACT_APP_API_ROOT + '/api/user', {
         headers: {
           'Authorization': `Bearer ${user.accessToken}`
         }
       })
       const json = await response.json()
-      if (response.ok && json.validUser) {
+      if (response.ok) {
         const { accessToken } = user
         localStorage.setItem('__statslugger_user__', JSON.stringify({...json, accessToken}))
         dispatch({ type: 'LOGIN', payload: {...json, accessToken} })

@@ -131,7 +131,7 @@ export default function AccountProfile() {
 
           <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
             <Tooltip title="Upload image">
-              <IconButton sx={{ color: 'white' }} onClick={handleOpenImageUploadModal}>
+              <IconButton sx={{ color: 'white' }} onClick={handleOpenImageUploadModal} disabled={changePhotoIsLoading || resetPhotoIsLoading}>
                 <Avatar alt={user.displayName} src={photoUrl || user.photoURL} sx={{ width: '6rem', height: '6rem' }} />
               </IconButton>
             </Tooltip>

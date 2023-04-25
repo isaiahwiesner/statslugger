@@ -28,13 +28,10 @@ export const useEmailConfirmation = () => {
   const confirmEmail = async (token) => {
     setIsLoading(true)
     setError(null)
-    const response = await fetch(process.env.REACT_APP_API_ROOT + '/auth/confirm-email', {
-      method: 'POST',
+    const response = await fetch(process.env.REACT_APP_API_ROOT + `/auth/confirm-email?token=${token}`, {
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.accessToken}`
-      },
-      body: JSON.stringify({ token })
+      }
     })
     const json = await response.json()
     if (!response.ok) {

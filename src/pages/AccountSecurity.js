@@ -124,7 +124,7 @@ export default function AccountSecurity() {
               Change Email
             </Button>
 
-            <Button type="button" variant="outlined" onClick={handleResetEmailForm} disabled={passwordIsLoading || (email === user.email && !emailPass)}>
+            <Button type="button" variant="outlined" onClick={handleResetEmailForm} disabled={emailIsLoading || (email === user.email && !emailPass)}>
               Cancel
             </Button>
           </Box>

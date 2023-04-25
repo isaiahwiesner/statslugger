@@ -242,7 +242,7 @@ export default function Navbar() {
                     </Tooltip>
                   )}
                 </Box>
-                <Typography noWrap>{user.email}</Typography>
+                <Typography noWrap sx={{ maxWidth: '13.5rem', fontSize: '14px' }}>{user.email}</Typography>
               </Box>
             </Box>
           </Box>
