@@ -14,8 +14,7 @@ const app = express()
 // Middleware
 app.use(bodyParser.json())
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS.split(','),
-  credentials: true
+  origin: process.env.ALLOWED_ORIGIN,
 }))
 
 // Routers
