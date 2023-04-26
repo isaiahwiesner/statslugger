@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const authRouter = require('./routers/authRouter')
 const userRouter = require('./routers/userRouter')
+const playersRouter = require('./routers/playersRouter')
 
 // Setup express
 const app = express()
@@ -19,6 +20,7 @@ app.use(cors({
 // Routers
 app.use('/auth', authRouter)
 app.use('/api/user', userRouter)
+app.use('/api/players', playersRouter)
 
 // Connect to mongo and start
 const port = process.env.PORT || 5000

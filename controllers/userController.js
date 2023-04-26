@@ -34,7 +34,7 @@ const updateProfileImage = async (req, res) => {
   }
   const photoValid = await isImage(photoURL)
   if (!photoValid) {
-    return res.status(400).json({ error: 'Invalid photo url', errorFields: ['photoURL'] })
+    return res.status(400).json({ error: 'Invalid photo URL', errorFields: ['photoURL'] })
   }
   await User.updateOne({ uid }, { photoURL })
   res.status(200).json({ msg: 'Profile image updated', photoURL })

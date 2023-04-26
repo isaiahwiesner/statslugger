@@ -7,6 +7,7 @@ const { sendConfirmationEmail } = require('../utils/sendEmail')
 
 const Schema = mongoose.Schema
 
+// Schema
 const userSchema = new Schema({
   displayName: {
     type: String,
