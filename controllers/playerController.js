@@ -25,6 +25,16 @@ const getPlayer = async (req, res) => {
   }
 }
 
+// Get players
+const getPlayers = async (req, res) => {
+  try {
+    const players = await Player.getPlayers(req.user)
+    res.status(200).json(players)
+  } catch (e) {
+    res.status(400).json({ error: e.message })
+  }
+}
+
 // Update player
 const updatePlayer = async (req, res) => {
   const { _id } = req.params
@@ -116,6 +126,7 @@ const setPrivacy = async (req, res) => {
 
 module.exports = {
   addPlayer,
+  getPlayers,
   getPlayer,
   updatePlayer,
   deletePlayer,

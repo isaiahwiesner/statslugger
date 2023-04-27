@@ -94,10 +94,23 @@ playerSchema.statics.addPlayer = async function (body, user) {
   return player
 }
 
+// Static get players method
+playerSchema.statics.getPlayers = async function(user) {
+  const players = await this.find({ $or: [{ 'creator.uid': user.uid }, { editors: user.uid }] }).sort({ lastName: 1, firstName: 1, number: 1 })
+  const docs = players.map((player) => {
+    const { __v, ...doc } = player._doc
+    return doc
+  })
+  return docs
+}
+
 // Static get player method
 playerSchema.statics.getPlayer = async function (_id) {
   if (!_id) {
     throw Error('Missing player ID')
+  }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
   }
   const player = await this.findOne({ _id }).select('-__v')
   if (!player) {
@@ -110,6 +123,10 @@ playerSchema.statics.getPlayer = async function (_id) {
 playerSchema.statics.updatePlayer = async function (_id, body, user) {
   if (!_id) {
     throw Error('Missing player ID')
+  }
+  
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
   }
   const player = await this.findOne({ _id })
   if (!player) {
@@ -138,11 +155,14 @@ playerSchema.statics.deletePlayer = async function (_id, user) {
   if (!_id) {
     throw Error('Missing player ID')
   }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
+  }
   const player = await this.findOne({ _id })
   if (!player) {
     throw Error('No player found')
   }
-  const allowed = canEdit(player, user.uid)
+  const allowed = canEdit(player, user.uid, true)
   if (!allowed) {
     throw Error('No access')
   }
@@ -155,6 +175,10 @@ playerSchema.statics.deletePlayer = async function (_id, user) {
 playerSchema.statics.updatePlayerImage = async function (_id, body, user) {
   if (!_id) {
     throw Error('Missing player ID')
+  }
+  
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
   }
   const { photoURL } = body
   if (!photoURL) {
@@ -182,6 +206,9 @@ playerSchema.statics.resetPlayerImage = async function (_id, user) {
   if (!_id) {
     throw Error('Missing player ID')
   }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
+  }
   const player = await this.findOne({ _id })
   if (!player) {
     throw Error('No player found')
@@ -199,6 +226,9 @@ playerSchema.statics.resetPlayerImage = async function (_id, user) {
 playerSchema.statics.addEditor = async function (_id, param, user) {
   if (!_id) {
     throw Error('Missing player ID')
+  }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
   }
   const player = await this.findOne({ _id })
   if (!player) {
@@ -234,6 +264,9 @@ playerSchema.statics.removeEditor = async function (_id, param, user) {
   if (!_id) {
     throw Error('Missing player ID')
   }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
+  }
   const player = await this.findOne({ _id })
   if (!player) {
     throw Error('No player found')
@@ -264,6 +297,9 @@ playerSchema.statics.removeEditor = async function (_id, param, user) {
 playerSchema.statics.setPrivacy = async function (_id, body, user) {
   if (!_id) {
     throw Error('Missing player ID')
+  }
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    throw Error('Invalid player ID')
   }
   const { privacy } = body
   if (!privacy) {
