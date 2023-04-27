@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { usePasswordReset } from '../hooks/usePasswordReset'
+import { usePasswordReset } from '../../hooks/auth/usePasswordReset'
 import { Alert, Box, Button, Card, Container, TextField, Typography } from '@mui/material'
-import Loading from '../components/Loading'
+import Loading from '../../components/Loading'
 
 export default function ForgotPassword() {
   const { sendPasswordResetEmail, error, isLoading } = usePasswordReset()

@@ -7,7 +7,6 @@ export function useImageUpload() {
   const uploadImage = async (image) => {
     setError(null)
     setIsLoading(true)
-    console.log(image)
     const formData = new FormData()
     formData.append('image', image)
     try {
@@ -31,7 +30,6 @@ export function useImageUpload() {
     } catch (e) {
       setError(e.message)
       setIsLoading(false)
-      console.error(e)
     }
   }
 

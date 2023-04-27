@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
-import { useLogout } from './useLogout'
+import { useAuthContext } from '../useAuthContext'
+import { useLogout } from '../auth/useLogout'
 
 export const useChangeEmail = () => {
   const [error, setError] = useState(null)

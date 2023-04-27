@@ -11,13 +11,13 @@ import {
   TextField,
   Typography
 } from '@mui/material'
-import { useAuthContext } from '../hooks/useAuthContext'
-import { useChangeEmail } from '../hooks/useChangeEmail'
-import { useChangePassword } from '../hooks/useChangePassword'
-import Loading from '../components/Loading'
-import PasswordInput from '../components/PasswordInput'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useChangeEmail } from '../../hooks/user/useChangeEmail'
+import { useChangePassword } from '../../hooks/user/useChangePassword'
+import Loading from '../../components/Loading'
+import PasswordInput from '../../components/PasswordInput'
 
-export default function AccountSecurity() {
+export default function SettingsSecurity() {
   const { user } = useAuthContext()
   const {
     changeEmail,

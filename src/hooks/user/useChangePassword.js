@@ -1,23 +1,30 @@
 import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from '../useAuthContext'
+import { useLogout } from '../auth/useLogout'
 
-export const useChangeDisplayName = () => {
+export const useChangePassword = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [errorFields, setErrorFields] = useState([])
-  const { dispatch, user } = useAuthContext()
+  const { user } = useAuthContext()
+  const { logout } = useLogout()
 
-  const changeDisplayName = async (displayName) => {
+  const changePassword = async (currentPassword, password, confirmPassword, agree) => {
     setError(null)
     setErrorFields([])
     setIsLoading(true)
-    const response = await fetch(process.env.REACT_APP_API_ROOT + '/api/user/update-displayname', {
+    if (!agree) {
+      setError('You must agree')
+      setIsLoading(false)
+      return
+    }
+    const response = await fetch(process.env.REACT_APP_API_ROOT + '/api/user/update-password', {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${user.accessToken}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ displayName })
+      body: JSON.stringify({ currentPassword, password, confirmPassword })
     })
     const json = await response.json()
     if (!response.ok) {
@@ -27,14 +34,12 @@ export const useChangeDisplayName = () => {
       return false
     }
     if (response.ok) {
-      dispatch({ type: 'UPDATE', payload: { user: { ...user, displayName } } })
-      setIsLoading(false)
-      return true
+      logout()
     }
   }
 
   return {
-    changeDisplayName,
+    changePassword,
     error, setError,
     errorFields, setErrorFields,
     isLoading

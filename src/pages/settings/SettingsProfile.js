@@ -12,15 +12,15 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { useChangeDisplayName } from '../hooks/useChangeDisplayName'
-import { useAuthContext } from '../hooks/useAuthContext'
-import ImageUploadModal from '../components/ImageUploadModal'
-import { useChangePhotoURL } from '../hooks/useChangePhotoURL copy'
-import { useResetPhotoURL } from '../hooks/useResetPhotoURL'
-import Loading from '../components/Loading'
+import { useChangeDisplayName } from '../../hooks/user/useChangeDisplayName'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useChangePhotoURL } from '../../hooks/user/useChangePhotoURL'
+import { useResetPhotoURL } from '../../hooks/user/useResetPhotoURL'
+import ImageUploadModal from '../../components/ImageUploadModal'
+import Loading from '../../components/Loading'
 
 
-export default function AccountProfile() {
+export default function SettingsProfile() {
   const { user } = useAuthContext()
   const {
     changeDisplayName,
@@ -77,7 +77,7 @@ export default function AccountProfile() {
 
   return (
     <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card sx={{ width: '100%', maxWidth: '30Rem', mt: 10, mb: 2 }}>
+      <Card sx={{ width: '100%', maxWidth: '30rem', mt: 10, mb: 2 }}>
         <form onSubmit={handleNameSubmit}>
           <Box sx={{
             display: 'flex',

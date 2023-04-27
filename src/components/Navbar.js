@@ -15,6 +15,7 @@ import {
   ListItemIcon,
   ListItemText,
   Menu,
+  Modal,
   Switch,
   Tooltip,
   Typography
@@ -25,22 +26,23 @@ import {
   Lock as SecurityIcon,
   Login as LoginIcon,
   Logout as LogoutIcon,
-  Person as AccountIcon,
+  AccountBox as AccountIcon,
   PersonAdd as SignupIcon,
   Settings as SettingsIcon,
+  Person as PlayersIcon,
+  PersonAdd as AddPlayerIcon,
   Menu as MenuIcon,
   ExpandLess,
   ExpandMore,
-  CheckCircle as EmailVerifiedIcon,
   Error as EmailUnverifiedIcon,
   VerifiedUser as AdminIcon,
 } from '@mui/icons-material'
 
 import { useAuthContext } from '../hooks/useAuthContext'
 import { usePageContext } from '../hooks/usePageContext'
-import { useLogout } from '../hooks/useLogout'
+import { useLogout } from '../hooks/auth/useLogout'
 
-import logo from '../vectors/StatSlugger-White_Red.svg'
+import logo from '../vectors/StatSlugger-White_Solid.svg'
 import { useThemeContext } from '../hooks/useThemeContext'
 
 export default function Navbar() {
@@ -77,7 +79,14 @@ export default function Navbar() {
       path: '/',
       auth: true,
       icon: DashboardIcon
-    }
+    },
+    {
+      name: 'Players',
+      id: 'players',
+      path: '/players',
+      auth: true,
+      icon: PlayersIcon
+    },
   ]
   const authItems = [
     {
@@ -95,22 +104,22 @@ export default function Navbar() {
       icon: SignupIcon
     },
     {
-      name: 'Account',
-      id: 'account',
+      name: 'Settings',
+      id: 'settings',
       auth: true,
       icon: SettingsIcon,
       subpages: [
         {
           name: 'Profile',
-          id: 'account-profile',
-          path: '/account/profile',
+          id: 'settings-profile',
+          path: '/settings/profile',
           auth: true,
           icon: AccountIcon
         },
         {
           name: 'Security',
-          id: 'account-security',
-          path: '/account/security',
+          id: 'settings-security',
+          path: '/settings/security',
           auth: true,
           icon: SecurityIcon
         },
@@ -124,6 +133,12 @@ export default function Navbar() {
       ]
     },
   ]
+
+  const [displayUserImage, setDisplayUserImage] = useState(null)
+  const handleOpenUserImage = () => {
+    setDisplayUserImage(user.photoURL)
+    handleCloseUserMenu()
+  }
 
   return (
     <Box sx={{
@@ -145,16 +160,16 @@ export default function Navbar() {
           <IconButton size="medium" sx={{ color: 'white' }} onClick={handleOpenNavMenu}>
             <MenuIcon sx={{ width: '2rem', height: '2rem' }} />
           </IconButton>
-          <Typography noWrap variant="h3" sx={{ color: 'white', display: {xs: 'none', md: 'block'} }}>
+          <Typography noWrap variant="h3" sx={{ color: 'white', display: { xs: 'none', md: 'block' } }}>
             {page?.name}
           </Typography>
         </Box>
 
         <Box sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Typography noWrap variant="h3" sx={{ color: 'white', display: {xs: 'block', md: 'none'} }}>
+          <Typography noWrap variant="h3" sx={{ color: 'white', display: { xs: 'block', md: 'none' } }}>
             {page?.name}
           </Typography>
-          <Link component={RouterLink} to="/" sx={{ display: {xs: 'none', md: 'block'} }}>
+          <Link component={RouterLink} to="/" sx={{ display: { xs: 'none', md: 'block' } }}>
             <img src={logo} alt="Stat Slugger" style={{ height: '2.5rem', width: 'auto' }} />
           </Link>
         </Box>
@@ -199,6 +214,11 @@ export default function Navbar() {
           </List>
         </Box>
       </Drawer>
+      <Modal open={Boolean(displayUserImage)} onClose={() => setDisplayUserImage(null)} sx={{ display: 'grid', placeItems: 'center' }} >
+        <Box sx={{ width: '100%', maxWidth: '30rem', p: 2, display: 'flex', justifyContent: 'center' }}>
+          <img src={user?.photoURL} alt={user?.displayName} style={{ width: 'auto', maxWidth: '100%', height: 'auto', maxHeight: '80vh' }} />
+        </Box>
+      </Modal>
     </Box>
   )
 
@@ -222,7 +242,14 @@ export default function Navbar() {
         {user && (
           <Box sx={{ px: 1.5, py: 0.5, width: '20rem', display: 'flex', flexDirection: 'column', gap: 1 }}>
             <Box sx={{ width: '100%', display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 2 }}>
-              <Avatar alt={user.displayName} src={user.photoURL} sx={{ width: '4rem', height: '4rem' }} />
+              {user.photoURL && (
+                <Tooltip title="View image">
+                  <IconButton size="medium" onClick={handleOpenUserImage}>
+                    <Avatar alt={user.displayName} src={user.photoURL} sx={{ width: '4rem', height: '4rem' }} />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {!user.photoURL && <Avatar alt={user.displayName} src={null} sx={{ width: '4rem', height: '4rem' }} />}
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                   <Typography noWrap sx={{ fontSize: '20px', maxWidth: '11.75rem' }}>{user.displayName}</Typography>

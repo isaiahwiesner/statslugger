@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useEmailConfirmation } from '../hooks/useEmailConfirmation'
+import { useEmailConfirmation } from '../../hooks/auth/useEmailConfirmation'
 import { useParams } from 'react-router-dom'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../../hooks/useAuthContext'
 import { Alert, Container } from '@mui/material'
 
 export default function EmailConfirmation() {

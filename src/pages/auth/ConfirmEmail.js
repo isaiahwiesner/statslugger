@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAuthContext } from '../hooks/useAuthContext'
-import { useEmailConfirmation } from '../hooks/useEmailConfirmation'
+import { useAuthContext } from '../../hooks/useAuthContext'
+import { useEmailConfirmation } from '../../hooks/auth/useEmailConfirmation'
 import { Alert, Box, Button, Container, Typography } from '@mui/material'
 
 export default function ConfirmEmail() {

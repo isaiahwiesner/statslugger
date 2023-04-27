@@ -15,14 +15,18 @@ import PageWrapper from './components/PageWrapper'
 // Pages
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
-import AccountProfile from './pages/AccountProfile'
-import AccountSecurity from './pages/AccountSecurity'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import EmailConfirmation from './pages/EmailConfirmation'
-import ConfirmEmail from './pages/ConfirmEmail'
-import ForgotPassword from './pages/ForgotPassword'
-import ResetPassword from './pages/ResetPassword'
+
+import Players from './pages/players/Players'
+
+import SettingsProfile from './pages/settings/SettingsProfile'
+import SettingsSecurity from './pages/settings/SettingsSecurity'
+
+import Login from './pages/auth/Login'
+import Signup from './pages/auth/Signup'
+import EmailConfirmation from './pages/auth/EmailConfirmation'
+import ConfirmEmail from './pages/auth/ConfirmEmail'
+import ForgotPassword from './pages/auth/ForgotPassword'
+import ResetPassword from './pages/auth/ResetPassword'
 
 function App() {
   const { user } = useAuthContext()
@@ -42,18 +46,26 @@ function App() {
               : <PageWrapper name="Home" id="home"><Home /></PageWrapper>
           } />
 
-          <Route path="/account/profile" element={
+          <Route path="/players" element={
             user
               ? user.emailVerified
-                ? <PageWrapper name="Profile" id="account-profile"><AccountProfile /></PageWrapper>
+                ? <PageWrapper name="Players" id="players"><Players /></PageWrapper>
                 : <Navigate to="/confirm-email" />
               : <Navigate to="/login" />
           } />
 
-          <Route path="/account/security" element={
+          <Route path="/settings/profile" element={
             user
               ? user.emailVerified
-                ? <PageWrapper name="Security" id="account-security"><AccountSecurity /></PageWrapper>
+                ? <PageWrapper name="Profile" id="settings-profile"><SettingsProfile /></PageWrapper>
+                : <Navigate to="/confirm-email" />
+              : <Navigate to="/login" />
+          } />
+
+          <Route path="/settings/security" element={
+            user
+              ? user.emailVerified
+                ? <PageWrapper name="Security" id="settings-security"><SettingsSecurity /></PageWrapper>
                 : <Navigate to="/confirm-email" />
               : <Navigate to="/login" />
           } />

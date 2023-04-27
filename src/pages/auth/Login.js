@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { useLogin } from '../hooks/useLogin'
+import { useLogin } from '../../hooks/auth/useLogin'
 import { Alert, Box, Button, Card, Container, Link, TextField, Typography } from '@mui/material'
-import Loading from '../components/Loading'
-import PasswordInput from '../components/PasswordInput'
+import Loading from '../../components/Loading'
+import PasswordInput from '../../components/PasswordInput'
 
 export default function Login() {
   const [email, setEmail] = useState('')

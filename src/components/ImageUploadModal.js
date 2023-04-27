@@ -11,7 +11,7 @@ export default function ImageUploadModal({ open, onClose, onSuccess }) {
   const [file, setFile] = useState(null)
   const [base64, setBase64] = useState(null)
   const [selectFileError, setSelectFileError] = useState(null)
-  const [photoURL, setPhotoURL] = useState(null)
+  const [photoURL, setPhotoURL] = useState('')
   const [urlError, setUrlError] = useState(null)
   const [urlErrorFields, setUrlErrorFields] = useState([])
   const handleSelectFile = (e) => {
@@ -59,7 +59,7 @@ export default function ImageUploadModal({ open, onClose, onSuccess }) {
     setError(null)
     setSelectFileError(null)
     setBase64(null)
-    setPhotoURL(null)
+    setPhotoURL('')
     setUrlError(null)
     setUrlErrorFields([])
   }
@@ -99,7 +99,7 @@ export default function ImageUploadModal({ open, onClose, onSuccess }) {
                 disabled={isLoading || photoURL}
               />
 
-              <Button variant="outlined" component="span" disabled={isLoading || photoURL}>
+              <Button variant="outlined" component="span" disabled={isLoading || Boolean(photoURL)}>
                 <Add />
               </Button>
             </label>
